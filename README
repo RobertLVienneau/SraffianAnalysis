@@ -1,0 +1,94 @@
+This directory contains Octave code to support the analysis of the choice of technique.
+
+I have examples of code to specify discrete technologies for small economies and to plot
+wage curves and switch points for them. Techniques in these economies produce one, two,
+three, or four commodities. Switch points, which are found as the roots of certain polynomial
+equations, can be found exactly. I allow the techniques to be specified as general joint
+production and with persistent differentials in the rate of profits. (The cost-minimizing
+technique in general joint production is not necessarily found as on the outer envelope
+of wage curves.)
+
+I also have some main progrms to find fluke switch points, like a switch point that is
+an intersection of more than two wage curves. A Microsoft Excel spreadsheet and
+PowerPoint slide decks illustrate what can be done with this capability.
+
+Files in this directory:
+
+AnalysisDriver.m: Main program.
+AnalysisDriver2.m: Another main program. THIS is the most mature example of a test driver.
+AnalysisDriver3.m: Another main program, for a two-commodity model.
+BaldoneDriver.m: An example of fixed capital.
+BrunoEtAtDriver.m: Example from Bruno, Burmeister & Sheshinski (1966).
+CornTractorDriver.m: Example of Steedman's corn-tractor model. TODO: fix.
+HarrodExample.csv: For a 1-d diagram for a two-commodity model.
+HarrodExample3Comodity.csv: For a 1-d diagram for a three-commodity model.
+HarrodExplorer.m: Explores Harrod-neutral technical progress in a two-commodity model.
+HarrodExplorer2.m: To find a fluke switch point on the wage axis.
+HarrodExplorer3.m: To find a fluke switch point for all four wage curves.
+HarrodExplorer3_1.m: To find a fluke switch for the intersection of four wage curves in
+  a three-commodity model. Do I want to run this more than once?
+HarrodExplorer3_2.m: To find a fluke switch point for a reswitching pattern. Do
+  I want to run this more than once?
+HarrodExplorer3_3.m: To echo out to standard out results for a three-commodity model.
+HarrodExplorer4.m: To find a fluke switch point between Alpha and Beta at r = -100%.
+HarrodExplorer5.m: Echoes results as Comma-Separated Variables (CSV)
+README: This file.
+check_prices.m: Checks solution to price system by calling the following..
+check_prices1.m: Checks solution to price system for one-commodity model.
+check_prices2.m: Checks solution to price system for two-commodity model.
+check_prices3.m: Checks solution to price system for three-commodity model.
+get_maximum_wage.m: Returns the maximum wage for a model of joint production.
+get_price_curve.m: Calculates prices to plot.
+get_r_max.m: Returns the maximum rate of profits for a model of joint production.
+  This must be WRONG since it does not use markups.
+get_r_max2.m: Returns the maximum rate of profits, based on numerator
+  of rational function for the wage.
+get_technique_parameters.m: Defines a technique from a larger specificaion of technology.
+get_wage.m: Returns the wage in a model of joint production.
+get_wage_curve.m: Calculates a wage curve.
+get_wage_rational.m: Returns the wage for a rational function.
+get_wages_for_switch_points.m: Gets the wages for switch points.
+get_rational_funtions.m: A wrapper for the next four subroutines.
+get_rational_functions1.m: Returns coefficients for polynomials in a one-commodity model.
+get_rational_functions2.m: Returns coefficients for polynomials for numerators
+  and denominoators for solutions of price equations in a two-commodity model.
+get_rational_funtions3.m: Same, for a three-commodity model.
+get_rational_funtions4.m: Same, for a four-commodity model. TODO: I am not sure this works
+  always. It works for BaldoneDriver, but CornTractorDriver has the output from this
+  routine replaced with a hard-coded answer.
+get_switch_points.m:
+get_switch_points_from_prices.m: Finds switch points at which supernormal profits are zero for
+   a process not in the technique for the price system.
+polydet2.m: For a square matrix of the form (B - r*A) finds its determinant as a polynomial in r.
+polydet3.m:
+polydet4.m:
+print_parameters_wrapper.m:  Echoes parameters and coefficiengs of polynonimals for rational functions to standard out.
+print_price_functions.m: Echoes polynomial coefficients for rational functions.
+print_price_parameters.m: Echoes out parameters.
+schefoldDriver.m: Main program for analyzing Scefold's triple-switching example.
+schefoldDriver2.m: Standard output is Comma-Seperated Variables (CSV). TO DO: explore fprinf.
+schefoldExample.csv: Output cut and pasted from Octave.
+schefoldExample.pptx: Figures abd slides
+schefoldExample.xlsx: Excel spreadsheet.
+schefoldFlukeDriver.m: Finds markups for fluke switch points.
+
+TODO:
+  o Update AnalysisDriver, AnalysisDriver3, BunoEtAlDriver, HarrodExplorer5, schefoldDriver, schefoldDriver2
+    as following AnalysisDriver2. Audit other main prorams to see whether they can be simplified.
+  o Create some layer of abstraction above the basic subroutines that simplifies
+    the main programs. Maybe I need to learn about objects, function pointers, and
+    so on.
+  o Simplify code, if possible, to use use vector operations.
+  o Where subroutines specify the number of commodities, write a calling
+    subroutine without any specification of size. Do this especially for polydet*.m.
+  o Write test drivers for intensive rent, extensive rent, general joint production.
+  o Do I need something for quantity flows?
+  o In subroutines, test for consistency of size.
+  o Write a subroutine to test for the Hawkins-Simon condition.
+  o Write a subroutine to generate matrices for techniques corresponding to different
+    economic lives of machines, given a technique with fixed capital. In some snse,
+    I have this.
+  o Do the same for Steedman's corn-tractor model.
+  o Write subroutines to modify parameters to find, iteratively, fluke switch points.
+.
+
