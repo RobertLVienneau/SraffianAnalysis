@@ -72,7 +72,7 @@ negativeOne = 0;
 [a0Theta, ATheta, BTheta, S] = ...
     get_technique_parameters( [2, 4, 6], a0, A, B, [s1, s1, s2, s2, s3, s3] );
 
-% Find polynomials for rational functions for each echnique.
+% Find polynomials for rational functions for each technique.
 [fAlpha, gAlpha, numerAlpha] = get_rational_functions( a0Alpha, AAlpha, BAlpha, d, S);
 [fBeta, gBeta, numerBeta] = get_rational_functions( a0Beta, ABeta, BBeta, d, S);
 [fGamma, gGamma, numerGamma] = get_rational_functions( a0Gamma, AGamma, BGamma, d, S);

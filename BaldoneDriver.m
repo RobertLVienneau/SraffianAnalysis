@@ -6,12 +6,17 @@
 %   Pasinetti, Luigi L., (1980) (ed.), Essays on the Theory of Joint Production, New York,
 %      Columbia University Press.
 %
+% 0 < r < 4.0664 %        Alpha cost-minimizing.
+% 4.0664 % < r < 55.66%   Gamma cost-minimizing
+% 55.66 % < r < 62.73 %   Beta cost-minimiing
+% 62.73 %  r < 74.2 %     Alpha cost-minimizing.
+%
     s1 = 1;
     s2 = 1;
 
     % 1, if to plot wages; 2, if to plot prices of new machines;
     %    3 if to plot prices of 1-yr old machines; 4, if to plot prices of 2-yr old machines.
-    plotIndex = 1;
+    plotIndex = 2;
 
     a0 = [2/5, 1/5, 3/5, 2/5];
 
@@ -120,9 +125,12 @@ if ( plotIndex == 1)
    % Plot wage curves.
    axes( 'FontSize', 15, 'Box', 'on', 'NextPlot', 'add' );
    hold on
+   % TODO: Remove hard-coding of indices for positive(?) elements.
    plot( 100*rAlpha, wAlpha, '-', 'color', 'black', 'LineWidth', 2 );
-   plot( 100*rBeta, wBeta, '--', 'color', 'black', 'LineWidth', 2 );
-   plot( 100*rGamma, wGamma, ':', 'color', 'black', 'LineWidth', 2 );
+   plot( 100*rBeta(1:rIncrements - 1), wBeta(1:rIncrements - 1), ...
+      '--', 'color', 'black', 'LineWidth', 2 );
+   plot( 100*rGamma(1:rIncrements - 4), wGamma(1:rIncrements - 4), ...
+       ':', 'color', 'black', 'LineWidth', 2 );
 
    if ( size(switchPoints, 2) > 0 )
      plot( 100*switchPoints, wagesForSwitchPoints, "oblack", 'MarkerFaceColor', 'black');
@@ -132,6 +140,9 @@ if ( plotIndex == 1)
        'FontSize', 20, 'FontName', 'Times New Roman');
    ylabel( 'Wage (Busheles per Person-Year)', 'FontWeight', 'bold', ...
        'FontSize', 20, 'FontName', 'Times New Roman');
+
+   legendArray = [ 'Alpha'; 'Beta'; 'Gamma' ];
+   legend( legendArray, 'location', 'northeast' );
 
    hold off
 elseif ( plotIndex == 2)
@@ -146,9 +157,13 @@ elseif ( plotIndex == 2)
    % Plot price curves.
    axes( 'FontSize', 15, 'Box', 'on', 'NextPlot', 'add' );
    hold on
-   plot( 100*rAlpha, priceAlpha, '-', 'color', 'black', 'LineWidth', 2 );
-   plot( 100*rBeta, priceBeta, '--', 'color', 'black', 'LineWidth', 2 );
-   plot( 100*rGamma, priceGamma, ':', 'color', 'black', 'LineWidth', 2 );
+   % ylim( [0.0, max([priceAlpha(1,1), priceBeta(1,1), priceGamma(1,1)])] );
+   ylim( [0.0, 0.5] );
+   % TODO: Remove hard-coding of indices for positive elements.
+   plot( 100*rAlpha(1:rIncrements - 1), priceAlpha(1:rIncrements - 1), ...
+     '-', 'color', 'black', 'LineWidth', 2 );
+   plot( 100*rBeta(1:rIncrements - 1), priceBeta(1:rIncrements - 1), '--', 'color', 'black', 'LineWidth', 2 );
+   plot( 100*rGamma(1:rIncrements - 4), priceGamma(1:rIncrements - 4), ':', 'color', 'black', 'LineWidth', 2 );
 
    if ( size(switchPoints1, 2) > 0 )
      plot( 100*switchPoints1, priceSwitchPoints1, "oblack", 'MarkerFaceColor', 'black');
@@ -157,10 +172,15 @@ elseif ( plotIndex == 2)
      plot( 100*switchPoints2, priceSwitchPoints2, "oblack", 'MarkerFaceColor', 'black');
    endif
 
+   legendArray = [legendArray; 'Zeta' ];
+
    xlabel( 'Rate of Profits (Percent)', 'FontWeight', 'bold', ...
        'FontSize', 20, 'FontName', 'Times New Roman');
    ylabel( 'Price of new machines (Busheles per Machine)', 'FontWeight', 'bold', ...
        'FontSize', 20, 'FontName', 'Times New Roman');
+
+   legendArray = [ 'Alpha'; 'Beta'; 'Gamma' ];
+   legend( legendArray, 'location', 'northeast' );
 
    hold off
 
@@ -176,8 +196,11 @@ elseif (plotIndex == 3)
    % Plot price curves.
    axes( 'FontSize', 15, 'Box', 'on', 'NextPlot', 'add' );
    hold on
-   plot( 100*rBeta, priceBeta, '--', 'color', 'black', 'LineWidth', 2 );
-   plot( 100*rGamma, priceGamma, ':', 'color', 'black', 'LineWidth', 2 );
+   % TODO: Remove hard-coding of indices for positive(?) elements.
+   plot( 100*rBeta(1:rIncrements - 1), priceBeta(1:rIncrements - 1), ...
+       '--', 'color', 'black', 'LineWidth', 2 );
+   plot( 100*rGamma(1:rIncrements - 4), priceGamma(1:rIncrements - 4), ...
+      ':', 'color', 'black', 'LineWidth', 2 );
 
    if ( size(switchPoints1, 2) > 0 )
      plot( 100*switchPoints1, priceSwitchPoints1, "oblack", 'MarkerFaceColor', 'black');
@@ -194,6 +217,9 @@ elseif (plotIndex == 3)
    ylabel( 'Price of one-year old machines (Busheles per Machine)', 'FontWeight', 'bold', ...
        'FontSize', 20, 'FontName', 'Times New Roman');
 
+   legendArray = [ 'Beta'; 'Gamma' ];
+   legend( legendArray, 'location', 'northeast' );
+
    hold off
 
 elseif (plotIndex == 4)
@@ -206,7 +232,9 @@ elseif (plotIndex == 4)
    % Plot price curves.
    axes( 'FontSize', 15, 'Box', 'on', 'NextPlot', 'add' );
    hold on
-   plot( 100*rGamma, priceGamma, ':', 'color', 'black', 'LineWidth', 2 );
+   % TODO: Remove hard-coding of indices for positive(?) elements.
+   plot( 100*rGamma(1:rIncrements - 4), priceGamma(1:rIncrements - 4), ...
+      ':', 'color', 'black', 'LineWidth', 2 );
 
    % if ( size(switchPoints2, 2) > 0 )
    %  plot( 100*switchPoints2, priceSwitchPoints2, "oblack", 'MarkerFaceColor', 'black');
@@ -219,6 +247,9 @@ elseif (plotIndex == 4)
        'FontSize', 20, 'FontName', 'Times New Roman');
    ylabel( 'Price of two-year old machines (Busheles per Machine)', 'FontWeight', 'bold', ...
        'FontSize', 20, 'FontName', 'Times New Roman');
+
+   legendArray = [ 'Gamma' ];
+   legend( legendArray, 'location', 'northeast' );
 
    hold off
 endif

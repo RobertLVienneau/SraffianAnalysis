@@ -8,18 +8,20 @@ production and with persistent differentials in the rate of profits. (The cost-m
 technique in general joint production is not necessarily found as on the outer envelope
 of wage curves.)
 
-I also have some main progrms to find fluke switch points, like a switch point that is
-an intersection of more than two wage curves. A Microsoft Excel spreadsheet and
+I also have some main programs to find fluke switch points, like a switch point that is
+an intersection of more than two wage curves. Microsoft Excel spreadsheets and
 PowerPoint slide decks illustrate what can be done with this capability.
 
 Files in this directory:
 
 AnalysisDriver.m: Main program.
-AnalysisDriver2.m: Another main program. THIS is the most mature example of a test driver.
+AnalysisDriver2.m: Another main program. THIS is a fairly mature example of a test driver.
 AnalysisDriver3.m: Another main program, for a two-commodity model.
-BaldoneDriver.m: An example of fixed capital.
+BaldoneDriver.m: An example of fixed capital. TODO: fix off by one error for graphs.
 BrunoEtAtDriver.m: Example from Bruno, Burmeister & Sheshinski (1966).
 CornTractorDriver.m: Example of Steedman's corn-tractor model. TODO: fix.
+DAgataRentDriver.m: For exploring an example of intensive rent. This is the most powerful
+  test driver.
 HarrodExample.csv: For a 1-d diagram for a two-commodity model.
 HarrodExample3Comodity.csv: For a 1-d diagram for a three-commodity model.
 HarrodExplorer.m: Explores Harrod-neutral technical progress in a two-commodity model.
@@ -33,12 +35,16 @@ HarrodExplorer3_3.m: To echo out to standard out results for a three-commodity m
 HarrodExplorer4.m: To find a fluke switch point between Alpha and Beta at r = -100%.
 HarrodExplorer5.m: Echoes results as Comma-Separated Variables (CSV)
 README: This file.
-check_prices.m: Checks solution to price system by calling the following..
+check_prices.m: Checks solution to price system by calling the following.
 check_prices1.m: Checks solution to price system for one-commodity model.
 check_prices2.m: Checks solution to price system for two-commodity model.
 check_prices3.m: Checks solution to price system for three-commodity model.
+get_and_check_wage_curve.m: Calculates and checks a wage curve.
+get_extra_profits.m: Calculates extra profits at a rate of profits, for a system of prices and a production process.
+get_extra_profits_curve.m: Calculates extra profits for each rate of profits in a sequence.
 get_maximum_wage.m: Returns the maximum wage for a model of joint production.
 get_price_curve.m: Calculates prices to plot.
+get_prices_from_rational_functions.m: Calculates prices for a given rate of profits.
 get_r_max.m: Returns the maximum rate of profits for a model of joint production.
   This must be WRONG since it does not use markups.
 get_r_max2.m: Returns the maximum rate of profits, based on numerator
@@ -48,6 +54,7 @@ get_wage.m: Returns the wage in a model of joint production.
 get_wage_curve.m: Calculates a wage curve.
 get_wage_rational.m: Returns the wage for a rational function.
 get_wages_for_switch_points.m: Gets the wages for switch points.
+get_quantity_flows.m: Calculates levels of operations for each process.
 get_rational_funtions.m: A wrapper for the next four subroutines.
 get_rational_functions1.m: Returns coefficients for polynomials in a one-commodity model.
 get_rational_functions2.m: Returns coefficients for polynomials for numerators
@@ -73,17 +80,19 @@ schefoldExample.xlsx: Excel spreadsheet.
 schefoldFlukeDriver.m: Finds markups for fluke switch points.
 
 TODO:
+  o This needs some re-organization. For example, get_extra_profits duplicates some functionionality in
+    get_and_check_wage_curve and check_prices. This is probably not the only example.
   o Update AnalysisDriver, AnalysisDriver3, BunoEtAlDriver, HarrodExplorer5, schefoldDriver, schefoldDriver2
     as following AnalysisDriver2. Audit other main prorams to see whether they can be simplified.
   o Create some layer of abstraction above the basic subroutines that simplifies
     the main programs. Maybe I need to learn about objects, function pointers, and
-    so on.
-  o Simplify code, if possible, to use use vector operations.
+    so on. A technique is a good candidate for an object.
+  o Simplify code, if possible, to use vector operations.
   o Where subroutines specify the number of commodities, write a calling
     subroutine without any specification of size. Do this especially for polydet*.m.
-  o Write test drivers for intensive rent, extensive rent, general joint production.
-  o Do I need something for quantity flows?
-  o In subroutines, test for consistency of size.
+  o Write test drivers for extensive rent, general joint production. Graph rent against the rate of profits.
+  o Do I need something more for quantity flows?
+  o In subroutines, test for consistency of size of matrices.
   o Write a subroutine to test for the Hawkins-Simon condition.
   o Write a subroutine to generate matrices for techniques corresponding to different
     economic lives of machines, given a technique with fixed capital. In some snse,

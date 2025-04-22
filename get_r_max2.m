@@ -26,6 +26,12 @@ function rMax = get_r_max2( f )
       endif
     endfor
     ratesOfProfits = sort( ratesOfProfits );
-    rMax = ratesOfProfits( 1 );
+    % Had a perturbation of D'Agata's example of intensive rent where coefficients of f
+    % mostly cancelled out.
+    if ( size( ratesOfProfits, 1 ) > 0 )
+       rMax = ratesOfProfits( 1 );
+    else
+
+    endif;
   endif
 end
