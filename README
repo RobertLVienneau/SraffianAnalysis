@@ -22,6 +22,7 @@ BrunoEtAtDriver.m: Example from Bruno, Burmeister & Sheshinski (1966).
 CornTractorDriver.m: Example of Steedman's corn-tractor model. TODO: fix.
 DAgataRentDriver.m: For exploring an example of intensive rent. This is the most powerful
   test driver.
+FixedCapitalTwoSectorDriver.m: An illustration of the recurrence of truncation.
 HarrodExample.csv: For a 1-d diagram for a two-commodity model.
 HarrodExample3Comodity.csv: For a 1-d diagram for a three-commodity model.
 HarrodExplorer.m: Explores Harrod-neutral technical progress in a two-commodity model.
@@ -49,8 +50,10 @@ get_r_max.m: Returns the maximum rate of profits for a model of joint production
   This must be WRONG since it does not use markups.
 get_r_max2.m: Returns the maximum rate of profits, based on numerator
   of rational function for the wage.
+get_rational_functionsN.m: Finds coefficients of polynomials for an n-commodity model.
 get_technique_parameters.m: Defines a technique from a larger specificaion of technology.
 get_wage.m: Returns the wage in a model of joint production.
+get_wage_and_price_curves.m: Calculates wage and price curves for a n-commodity model.
 get_wage_curve.m: Calculates a wage curve.
 get_wage_rational.m: Returns the wage for a rational function.
 get_wages_for_switch_points.m: Gets the wages for switch points.
@@ -66,6 +69,7 @@ get_rational_funtions4.m: Same, for a four-commodity model. TODO: I am not sure 
 get_switch_points.m:
 get_switch_points_from_prices.m: Finds switch points at which supernormal profits are zero for
    a process not in the technique for the price system.
+polydet.m: For a square matrix of the form (B - r*A), finds its determinant as a polynomial in r.
 polydet2.m: For a square matrix of the form (B - r*A) finds its determinant as a polynomial in r.
 polydet3.m:
 polydet4.m:
@@ -84,6 +88,8 @@ TODO:
     get_and_check_wage_curve and check_prices. This is probably not the only example.
   o Update AnalysisDriver, AnalysisDriver3, BunoEtAlDriver, HarrodExplorer5, schefoldDriver, schefoldDriver2
     as following AnalysisDriver2. Audit other main prorams to see whether they can be simplified.
+  o Even more, update drivers to use capabilities for n-commodity models, instead of capabilities for
+    specific sizes.
   o Create some layer of abstraction above the basic subroutines that simplifies
     the main programs. Maybe I need to learn about objects, function pointers, and
     so on. A technique is a good candidate for an object.

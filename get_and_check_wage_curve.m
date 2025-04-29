@@ -18,7 +18,7 @@
 % techniqueName: The name of the technique, for the error message.
 %
 % rPoints: A row vector of rates of profits. The number of elements may be
-%   less thn numberIncrements if the specification leads to mesh points
+%   less than numberIncrements if the specification leads to mesh points
 %   with a negative wage or negative prices.
 % wageCurve: A row vector of the corresponding wages.
 % prices: Each column contains the prices at the corresponding rate of profits.
