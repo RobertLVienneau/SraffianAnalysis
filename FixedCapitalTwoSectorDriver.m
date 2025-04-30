@@ -28,6 +28,8 @@ s2 = 1;
 % 1, to plot wages; 2, to plot the price of new machines;
 % 3, to plot the price of old machines in the machine-producing sector;
 % 4, to plot the price of old machines in the corn-producing sector.
+% 5, to plot extra profits in the second machine-producing sector.
+% 6, to plot extra profits in the second corn-producing sector.
 plotIndex = 1;
 
 % Direct labor coefficients:
@@ -70,7 +72,6 @@ BGamma(3,:) = B(4, [1, 3, 4] );
 % Find polynomials for rational functions for each  feasible technique.
 [fAlpha, gAlpha, numerAlpha] = get_rational_functionsN(a0Alpha, AAlpha, BAlpha, d(1:2, :), SAlpha);
 % [fAlpha, gAlpha, numerAlpha] = get_rational_functions( a0Alpha, AAlpha, BAlpha, d(1:2, :), SAlpha);
-
 [fBeta, gBeta, numerBeta] = get_rational_functionsN(a0Beta, ABeta, BBeta, d(1:3, :), SBeta);
 [fGamma, gGamma, numerGamma] = get_rational_functionsN(a0Gamma, AGamma, BGamma, d(1:3, :), SGamma);
 [fDelta, gDelta, numerDelta] = get_rational_functionsN(a0Delta, ADelta, BDelta, d, SDelta);
@@ -171,6 +172,48 @@ wages4 = get_wages_for_switch_points(switchPoints4, fGamma, gGamma, rMaxGamma, 1
 % This is fine for graphing, but do not do this for other analyses.
 switchPoints = [ switchPoints1, switchPoints2, switchPoints3, switchPoints4 ];
 wagesForSwitchPoints = [ wages1, wages2, wages3, wages4 ];
+
+
+% Get curves for extra profits.
+extraProfitsAlpha1 = get_extra_profits_curve( rAlpha, fAlpha, gAlpha, numerAlpha, ...
+       a0(2), A(:,2), B(:,2), s1);
+if ( size(switchPoints1, 2) > 0 )
+    extraProfitsForSwitchPoints1  = get_extra_profits_curve( switchPoints1, fAlpha, gAlpha, numerAlpha, ...
+          a0(2), A(:,2), B(:,2), s1);
+endif
+extraProfitsAlpha2 = get_extra_profits_curve( rAlpha, fAlpha, gAlpha, numerAlpha, ...
+       a0(4), A(:,4), B(:,4), s2);
+if ( size(switchPoints2, 2) > 0 )
+   extraProfitsForSwitchPoints2 = get_extra_profits_curve( switchPoints2, fAlpha, gAlpha, numerAlpha, ...
+       a0(4), A(:,4), B(:,4), s2);
+endif
+
+extraProfitsBeta1 = get_extra_profits_curve( rBeta, fBeta, gBeta, numerBeta, ...
+       a0(2), A(:,2), B(:,2), s1);
+extraProfitsBeta2 = get_extra_profits_curve( rBeta, fBeta, gBeta, numerBeta, ...
+       a0(4), A(:,4), B(:,4), s2);
+if ( size(switchPoints3, 2) > 0 )
+  extraProfitsForSwitchPoints3 = get_extra_profits_curve( switchPoints3, fBeta, gBeta, numerBeta, ...
+       a0(4), A(:,4), B(:,4), s2);
+endif
+
+% Recall that third commodity is an old machine in the machine-producing industry.
+numerGamma2 = zeros( 4, 4);
+numerGamma2([2,3,4],[1,2]) = numerGamma(:,[1,2]);
+numerGamma2([2,3,4],4) = numerGamma(:,3);
+extraProfitsGamma1 = get_extra_profits_curve( rGamma, fGamma, gGamma, numerGamma2, ...
+       a0(2), A(:,2), B(:,2), s1);
+if ( size(switchPoints4, 2) > 0 )
+  extraProfitsForSwitchPoints4 = get_extra_profits_curve( switchPoints4, fGamma, gGamma, numerGamma2, ...
+       a0(2), A(:,2), B(:,2), s1);
+endif
+extraProfitsGamma2 = get_extra_profits_curve( rGamma, fGamma, gGamma, numerGamma2, ...
+       a0(4), A(:,4), B(:,4), s2);
+
+extraProfitsDelta1 = get_extra_profits_curve( rDelta, fDelta, gDelta, numerDelta, ...
+       a0(2), A(:,2), B(:,2), s1);
+extraProfitsDelta2 = get_extra_profits_curve( rDelta, fDelta, gDelta, numerDelta, ...
+       a0(4), A(:,4), B(:,4), s2);
 
 
 % Graph.
@@ -281,6 +324,58 @@ elseif ( plotIndex == 4 )
 
    legendArray = [ 'Gamma'; 'Delta' ];
    legend( legendArray, 'location', 'northeast' );
+
+   hold off
+elseif ( plotIndex == 5 )
+   % Plot extra profits in second machine-producing process.
+   % Should be identically zero for Beta and Delta.
+   axes( 'FontSize', 15, 'Box', 'on', 'NextPlot', 'add' );
+   hold on
+   plot( 100*rAlpha, extraProfitsAlpha1, '-', 'color', 'black', 'LineWidth', 2 );
+   plot( 100*rBeta, extraProfitsBeta1, '--', 'color', 'black', 'LineWidth', 2 );
+   plot( 100*rGamma, extraProfitsGamma1, ':', 'color', 'black', 'LineWidth', 2 );
+   plot( 100*rDelta, extraProfitsDelta1, '-.', 'color', 'black', 'LineWidth', 2 );
+
+   if ( size(switchPoints1, 2) > 0 )
+     plot( 100*switchPoints1, extraProfitsForSwitchPoints1, "oblack", 'MarkerFaceColor', 'black');
+   endif
+   if ( size(switchPoints4, 2) > 0 )
+     plot( 100*switchPoints4, extraProfitsForSwitchPoints4, "oblack", 'MarkerFaceColor', 'black');
+   endif
+
+   xlabel( 'Rate of Profits (Percent)', 'FontWeight', 'bold', ...
+       'FontSize', 20, 'FontName', 'Times New Roman');
+   ylabel( 'Extra profits in 2nd machine-process', 'FontWeight', 'bold', ...
+       'FontSize', 20, 'FontName', 'Times New Roman');
+
+   legendArray = [ 'Alpha'; 'Beta'; 'Gamma'; 'Delta' ];
+   legend( legendArray, 'location', 'southeast' );
+
+   hold off
+elseif ( plotIndex == 6 )
+   % Plot extra profits in second corn-producing process.
+   % Should be identically zero for Gamma and Delta.
+   axes( 'FontSize', 15, 'Box', 'on', 'NextPlot', 'add' );
+   hold on
+   plot( 100*rAlpha, extraProfitsAlpha2, '-', 'color', 'black', 'LineWidth', 2 );
+   plot( 100*rBeta, extraProfitsBeta2, '--', 'color', 'black', 'LineWidth', 2 );
+   plot( 100*rGamma, extraProfitsGamma2, ':', 'color', 'black', 'LineWidth', 2 );
+   plot( 100*rDelta, extraProfitsDelta2, '-.', 'color', 'black', 'LineWidth', 2 );
+
+   if ( size(switchPoints2, 2) > 0 )
+      plot( 100*switchPoints2, extraProfitsForSwitchPoints2, "oblack", 'MarkerFaceColor', 'black');
+   endif
+   if ( size(switchPoints3, 2) > 0 )
+     plot( 100*switchPoints3, extraProfitsForSwitchPoints3, "oblack", 'MarkerFaceColor', 'black');
+   endif
+
+   xlabel( 'Rate of Profits (Percent)', 'FontWeight', 'bold', ...
+       'FontSize', 20, 'FontName', 'Times New Roman');
+   ylabel( 'Extra profits in 2nd corn-process', 'FontWeight', 'bold', ...
+       'FontSize', 20, 'FontName', 'Times New Roman');
+
+   legendArray = [ 'Alpha'; 'Beta'; 'Gamma'; 'Delta' ];
+   legend( legendArray, 'location', 'southeast' );
 
    hold off
 endif

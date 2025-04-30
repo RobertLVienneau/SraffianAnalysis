@@ -15,14 +15,15 @@ PowerPoint slide decks illustrate what can be done with this capability.
 Files in this directory:
 
 AnalysisDriver.m: Main program.
-AnalysisDriver2.m: Another main program. THIS is a fairly mature example of a test driver.
+AnalysisDriver2.m: Another main program.
 AnalysisDriver3.m: Another main program, for a two-commodity model.
 BaldoneDriver.m: An example of fixed capital. TODO: fix off by one error for graphs.
 BrunoEtAtDriver.m: Example from Bruno, Burmeister & Sheshinski (1966).
 CornTractorDriver.m: Example of Steedman's corn-tractor model. TODO: fix.
 DAgataRentDriver.m: For exploring an example of intensive rent. This is the most powerful
   test driver.
-FixedCapitalTwoSectorDriver.m: An illustration of the recurrence of truncation.
+FixedCapitalTwoSectorDriver.m: An illustration of the recurrence of truncation. THIS
+  IS THE MOST MATURE EXAMPLE OF A TEST DRIVER.
 HarrodExample.csv: For a 1-d diagram for a two-commodity model.
 HarrodExample3Comodity.csv: For a 1-d diagram for a three-commodity model.
 HarrodExplorer.m: Explores Harrod-neutral technical progress in a two-commodity model.
