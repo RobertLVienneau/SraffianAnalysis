@@ -8,7 +8,7 @@ clear all
 % Alpha, Beta, and Gamma are techniques in which only one process is operated
 % on the land. The scarcity of land is shown by the possibility of selecting
 % the Delta, Epsilon, and Zeta techniques, in which two processes are
-% operating on the lnad, side by side.
+% operating on the land, side by side.
 %
 % For testing or demonstrating, modify plotIndex (line 27) or
 %   acres land available (line 47).
@@ -66,6 +66,14 @@ B = [[1, 0, 0, 0, 0]; ...
      [0, 0, 1, 1, 1]; ...
      -c];
 
+
+ t1 = 101.587301587301;
+ t2 = 101.587301587302;
+ t3 = (t1 + t2)/2;
+ t4 = (t3 + t2)/2;
+ t5 = (t3 + t4)/2;
+
+
 % Acres land available:
 T = 100;
 % At T = 100, Alpha, Delta, and Epsilon are feasible.
@@ -73,12 +81,22 @@ T = 100;
 % At T = 125, Alpha, Beta, and Gamma are feasible.
 
 % Numeraire:
+% Alpha, Delta, and Epsilon are feasible (D'Agata's example):
 d = [90; 60; 19; 0];
+% Alpha, Beta, Epsilon, and Zeta are feasible:
+% d = [90; 60; 17; 0];
+% Alpha, Beta, and Gamma are feasible:
+% d = [90; 60; 7; 0];
 
 % The fourth element of the price vector is the rent of land.
 
 % Required net output:
+% Alpha, Delta, and Epsilon are feasible (D'Agata's example):
 y = [90; 60; 19; -T];
+% Alpha, Beta, Epsilon, and Zeta are feasible:
+% y = [90; 60; 17; -T];
+% Alpha, Beta, and Gamma are feasible:
+% y = [90; 60; 7; -T];
 
 
 % Number of increments to use when plotting wage curves.
@@ -149,7 +167,7 @@ endif
 
 % Find polynomials for rational functions for each  feasible technique.
 if (isAlphaFeasible)
-   [fAlpha, gAlpha, numerAlpha] = get_rational_functions( a0Alpha, AAlpha, BAlpha, d, SAlpha);
+   [fAlpha, gAlpha, numerAlpha] = get_rational_functions( a0Alpha, AAlpha, BAlpha, d(1:3, :), SAlpha);
 endif
 if (isBetaFeasible)
    [fBeta, gBeta, numerBeta] = get_rational_functions( a0Beta, ABeta, BBeta, d, SBeta);
@@ -315,7 +333,7 @@ if (isAlphaFeasible)
       %   an argument.
       rents1 = [];
       for idx = 1:1:size(switchPoints1, 2)
-        prices = get_prices_from_rational_functions(switchPoints1, gDelta, numerDelta);
+        prices = get_prices_from_rational_functions(switchPoints1(idx), gDelta, numerDelta);
         rents1 = [rents1, prices(4)];
       endfor
       rentSwitchPoints = [ rentSwitchPoints, switchPoints1];
@@ -351,7 +369,7 @@ if (isAlphaFeasible)
       %   an argument.
       rents2 = [];
       for idx = 1:1:size(switchPoints2, 2)
-        prices = get_prices_from_rational_functions(switchPoints2, gEpsilon, numerEpsilon);
+        prices = get_prices_from_rational_functions(switchPoints2(idx), gEpsilon, numerEpsilon);
         rents2 = [rents2, prices(4)];
       endfor
       rentSwitchPoints = [ rentSwitchPoints, switchPoints2];
@@ -393,7 +411,7 @@ if (isBetaFeasible)
       %   an argument.
       rents3 = [];
       for idx = 1:1:size(switchPoints3, 2)
-        prices = get_prices_from_rational_functions(switchPoints3, gDelta, numerDelta);
+        prices = get_prices_from_rational_functions(switchPoints3(idx), gDelta, numerDelta);
         rentss = [rents3, prices(4)];
       endfor
       rentSwitchPoints = [ rentSwitchPoints, switchPoints3];
@@ -430,7 +448,7 @@ if (isBetaFeasible)
       %   an argument.
       rents4 = [];
       for idx = 1:1:size(switchPoints4, 2)
-        prices = get_prices_from_rational_functions(switchPoints4, gZeta, numerZeta);
+        prices = get_prices_from_rational_functions(switchPoints4(idx), gZeta, numerZeta);
         rents4 = [rents4, prices(4)];
       endfor
       rentSwitchPoints = [ rentSwitchPoints, switchPoints4];
@@ -472,7 +490,7 @@ if (isGammaFeasible)
       %   an argument.
       rents5 = [];
       for idx = 1:1:size(switchPoints5, 2)
-        prices = get_prices_from_rational_functions(switchPoints5, gEpsilon, numerEpsilon);
+        prices = get_prices_from_rational_functions(switchPoints5(idx), gEpsilon, numerEpsilon);
         rents5 = [rents5, prices(4)];
       endfor
       rentSwitchPoints = [ rentSwitchPoints, switchPoints5];
@@ -511,7 +529,7 @@ if (isGammaFeasible)
       %   an argument.
       rents6 = [];
       for idx = 1:1:size(switchPoints6, 2)
-        prices = get_prices_from_rational_functions(switchPoints6, gZeta, numerZeta);
+        prices = get_prices_from_rational_functions(switchPoints6(idx), gZeta, numerZeta);
         rents5 = [rents5, prices(4)];
       endfor
       rentSwitchPoints = [ rentSwitchPoints, switchPoints6];
@@ -547,7 +565,7 @@ if (isDeltaFeasible)
 
    rents7 = [];
    for idx = 1:1:size(switchPoints7, 2)
-      prices = get_prices_from_rational_functions(switchPoints7, gDelta, numerDelta);
+      prices = get_prices_from_rational_functions(switchPoints7(idx), gDelta, numerDelta);
       rents7 = [rents7, prices(4)];
    endfor
    rentSwitchPoints = [ rentSwitchPoints, switchPoints7];
@@ -588,7 +606,7 @@ if (isEpsilonFeasible)
    if (isZetaFeasible)
       rents8 = [];
       for idx = 1:1:size(switchPoints8, 2)
-         prices = get_prices_from_rational_functions(switchPoints8, gEpsilon, numerEpsilon);
+         prices = get_prices_from_rational_functions(switchPoints8(idx), gEpsilon, numerEpsilon);
          rents8 = [rents8, prices(4)];
       endfor
       rentSwitchPoints = [ rentSwitchPoints, switchPoints8];

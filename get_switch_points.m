@@ -14,7 +14,7 @@ function [nPoints, switchPoints] = get_switch_points( fAlpha, gAlpha, fBeta, gBe
     % Initialize for stub
     switchPoints = zeros(1, 1);
     nPoints = 0;
-    switchPoints(1 ) = -1;    % Dummy value.
+    switchPoints(1) = -1;    % Dummy value.
 
     myPoly = conv(fAlpha, gBeta) - conv( fBeta, gAlpha);
 
@@ -48,6 +48,10 @@ function [nPoints, switchPoints] = get_switch_points( fAlpha, gAlpha, fBeta, gBe
           endif
        endif
     endfor
+
+    if (nPoints == 0)
+       switchPoints = [];
+    endif
 
     % Sort switchPoints in ascending order by the rate of profits.
     switchPoints = sort( switchPoints );

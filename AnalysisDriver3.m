@@ -301,6 +301,10 @@ xlabel( 'Rate of Profits (Percent)', 'FontWeight', 'bold', ...
 %   'FontSize', 20, 'FontName', 'Times New Roman');
 ylabel( 'Wage (Busheles per Person-Year)', 'FontWeight', 'bold', ...
     'FontSize', 20, 'FontName', 'Times New Roman');
+
+legendArray = [ 'Alpha'; 'Beta'; 'Gamma'; 'Delta' ];
+legend( legendArray, 'location', 'northeast' );
+
 hold off
 
 % printf( "%3.12f,   %3.12f,   %3.12f\n", switchPoints1(1), switchPoints4(1), switchPoints4(1) - switchPoints1(1) );
