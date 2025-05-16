@@ -2,6 +2,9 @@
 
 clear all
 
+%
+% schefieldDriver.m
+%
 % TODO: Write subroutines
 %    To check Hawkins-Simon conditions.
 %    To solve for switch points
@@ -13,6 +16,9 @@ clear all
 
 
 s1 = 1/2;        % Markup in machine industry.
+% s1 = 0.495114006515;
+% s1 = 0.497971149500;
+% s1 = 0.500731966063;
 s2 = 1 - s1;   % Markup in corn industry.
 
 % s1 = 1;
@@ -221,21 +227,21 @@ endfor
 
 % Get rid of trailing zeros for each each curve to plot.
 idx = 1;
-while ( wagesAlpha(idx) > 0 )
+while ( ( wagesAlpha(idx) > 0 ) && ( idx < size( wagesAlpha,2 ) ) )
   idx = idx + 1;
 endwhile
 rAlpha = rr( 1:idx );
 wagesAlpha = wagesAlpha(1:idx);
 
 idx = 1;
-while ( wagesBeta(idx) > 0 )
+while ( ( wagesBeta(idx) > 0 ) && ( idx < size( wagesBeta,2 ) ) )
   idx = idx + 1;
 endwhile
 rBeta = rr( 1:idx );
 wagesBeta = wagesBeta(1:idx);
 
 idx = 1;
-while ( wagesGamma(idx) > 0 )
+while ( ( wagesGamma(idx) > 0 ) && ( idx < size( wagesGamma,2 ) ) )
   idx = idx + 1;
 endwhile
 rGamma = rr( 1:idx );
@@ -245,22 +251,25 @@ wagesGamma = wagesGamma(1:idx);
 % Plot wage curves.
 axes( 'FontSize', 15, 'Box', 'on', 'NextPlot', 'add' );
 hold on
-plot( rAlpha, wagesAlpha, 'blue', 'LineWidth', 2 );
+plot( 100*rAlpha, wagesAlpha, 'blue', 'LineWidth', 2 );
+plot( 100*rBeta, wagesBeta, 'red', 'LineWidth', 2 );
+plot( 100*rGamma, wagesGamma, 'green', 'LineWidth', 2 );
 if (nSwitchPoints1 > 0)
-    plot( switchPoints1, wagesForSwitchPoint1, "oblack", 'MarkerFaceColor', 'black');
+    plot( 100*switchPoints1, wagesForSwitchPoint1, "oblack", 'MarkerFaceColor', 'black');
 endif
 if (nSwitchPoints2 > 0)
-    plot( switchPoints2, wagesForSwitchPoint2, "oblack", 'MarkerFaceColor', 'black');
+    plot( 100*switchPoints2, wagesForSwitchPoint2, "oblack", 'MarkerFaceColor', 'black');
 endif
 if (nSwitchPoints3 > 0)
-    plot( switchPoints3, wagesForSwitchPoint3, "oblack", 'MarkerFaceColor', 'black');
+    plot( 100*switchPoints3, wagesForSwitchPoint3, "oblack", 'MarkerFaceColor', 'black');
 endif
-plot( rBeta, wagesBeta, 'red', 'LineWidth', 2 );
-plot( rGamma, wagesGamma, 'green', 'LineWidth', 2 );
 xlabel( 'Rate of Profits (Percent)', 'FontWeight', 'bold', ...
    'FontSize', 20, 'FontName', 'Times New Roman');
 ylabel( 'Wage (Busheles per Person-Year)', 'FontWeight', 'bold', ...
     'FontSize', 20, 'FontName', 'Times New Roman');
+
+legendArray = [ 'Alpha'; 'Beta'; 'Gamma'; ];
+legend( legendArray, 'location', 'northeast' );
 hold off
 
 % % Plot difference between wage curves
